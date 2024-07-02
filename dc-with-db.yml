@@ -11,12 +11,16 @@ services:
     depends_on:
       - martin
       - maputnik
+    networks:
+      - dbnet
 
   maputnik:
     image: ghcr.io/maplibre/maputnik:main
     restart: unless-stopped
     expose:
       - "80"
+    networks:
+      - dbnet
 
   martin:
     image: ghcr.io/maplibre/martin:latest
@@ -27,10 +31,12 @@ services:
       - ./data:/data
     command:
       - /data/estonia.mbtiles
-      - /data/benches.mbtiles
       - postgresql://postgres:password@db/estonia
+#      - /data/benches.mbtiles
     depends_on:
       - db
+    networks:
+      - dbnet
 
   db:
     image: postgis/postgis:16-3.4-alpine
@@ -39,9 +45,11 @@ services:
       - POSTGRES_DB=estonia
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
-    volumes:
-      # persist PostgreSQL data in a local directory outside the docker container
-      - ./pg_data:/var/lib/postgresql/data
+    networks:
+      - dbnet
+#    volumes:
+#      # persist PostgreSQL data in a local directory outside the docker container
+#      - ./pg_data:/var/lib/postgresql/data
 
   osm2pgsql:
     profiles: ["manual"]
@@ -62,3 +70,9 @@ services:
       - ./scripts:/scripts
     depends_on:
       - db
+    networks:
+      - dbnet
+
+networks:
+  dbnet:
+    external: true

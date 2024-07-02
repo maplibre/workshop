@@ -50,5 +50,7 @@ docker-compose -f dc-simple.yml up
 ## Import data with osm2pgsql
 
 ```bash
-docker-compose up osm2pgsql
+docker network create dbnet
+docker-compose -f dc-with-db.yml up db
+docker-compose -f dc-with-db.yml up osm2pgsql
 ```
