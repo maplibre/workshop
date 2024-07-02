@@ -28,17 +28,37 @@ services:
     command:
       - /data/estonia.mbtiles
       - /data/benches.mbtiles
-      - postgresql://postgres:password@pg_db/db
+      - postgresql://postgres:password@db/estonia
     depends_on:
-      - pg_db
+      - db
 
-  pg_db:
+  db:
     image: postgis/postgis:16-3.4-alpine
     restart: unless-stopped
     environment:
-      - POSTGRES_DB=db
+      - POSTGRES_DB=estonia
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
     volumes:
       # persist PostgreSQL data in a local directory outside the docker container
       - ./pg_data:/var/lib/postgresql/data
+
+  osm2pgsql:
+    profiles: ["manual"]
+    image: iboates/osm2pgsql:latest
+    restart: 'no'
+    command:
+      - -d
+      - postgresql://postgres:password@db/estonia
+      - -O
+      - flex
+      - -S
+      - /scripts/bicycle_parking.lua
+      - /data/estonia-latest.osm.pbf
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db
+    volumes:
+      - ./data:/data
+      - ./scripts:/scripts
+    depends_on:
+      - db
