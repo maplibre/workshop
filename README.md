@@ -19,7 +19,7 @@ docker run \
     -e JAVA_TOOL_OPTIONS="-Xmx2g" \
     -v "${PWD}/data":/data \
     ghcr.io/onthegomap/planetiler \
-    --download --area=estionia --minzoom=0 --maxzoom=14 \
+    --download --area=estonia --minzoom=0 --maxzoom=14 \
     --osm_path=/data/estonia-latest.osm.pbf
     
 # Fix permissions
@@ -49,6 +49,13 @@ martin data/estonia.mbtiles
 Run Martin locally, and see if you can access the catalog and source info:
 * http://localhost:3000/catalog
 * http://localhost:3000/estonia
+
+## View Tiles with Maputnik
+* Open https://maplibre.org/maputnik/
+* Click `Open` in the upper right corner, and click `Empty` (white square)
+* Click `Data Sources` at the top
+  * At the bottom,  set Source ID to `openmaptiles` and URL to `https://localhost:3000/estonia`, click `Add Source` and `Close`
+* Click `inspect` - you should see the "x-ray mode" of your data
 
 # Run Martin with Docker Compose
 
