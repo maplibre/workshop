@@ -1,5 +1,7 @@
 # workshop
 
+See the [slide deck](https://docs.google.com/presentation/d/1H0FPzIV7tJMvrr5d2S_W9IA7LUEw10AqGhDKLTrtaW4)
+
 ## Pre-reqs
 * Docker and Docker Compose
 * Download the data from [Geofabrik](https://download.geofabrik.de/), e.g. `estonia-latest.osm.pbf` from [this page](https://download.geofabrik.de/europe/estonia.html) into `data/` directory. ([mirror](https://maplibre-tiles-workshop-07-2024.s3.eu-central-1.amazonaws.com/estonia-latest.osm.pbf))
