@@ -27,6 +27,7 @@ services:
       - ./data:/data
     command:
       - /data/estonia.mbtiles
+      - /data/benches.mbtiles
       - postgresql://postgres:password@pg_db/db
     depends_on:
       - pg_db
