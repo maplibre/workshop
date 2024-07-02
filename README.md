@@ -78,4 +78,4 @@ docker-compose -f dc-with-db.yml up osm2pgsql
 docker-compose -f dc-with-db.yml up
 ```
 
-Use `http://localhost:8080/tiles/bicycle_parking` data source to Maputnik
+Add `http://localhost:8080/tiles/bicycle_parking` data source to Maputnik.
