@@ -17,16 +17,27 @@ docker compose -f dc-with-db.yml pull
 ```bash
 docker run \
     -e JAVA_TOOL_OPTIONS="-Xmx2g" \
-    -v "$PWD/data":/data \
+    -v "${PWD}/data":/data \
     ghcr.io/onthegomap/planetiler \
     --download --area=estionia --minzoom=0 --maxzoom=14 \
-    --osm_path=data/estonia-latest.osm.pbf
+    --osm_path=/data/estonia-latest.osm.pbf
     
 # Fix permissions
 sudo chown -R $USER:$USER data
 
 # Rename output file for our demo
 mv data/output.mbtiles data/estonia.mbtiles
+```
+
+### On Windows (using powershell)
+
+```bash
+docker run `
+    -e JAVA_TOOL_OPTIONS="-Xmx2g"   `
+    -v "${PWD}/data":/data   `
+    ghcr.io/onthegomap/planetiler   `
+    --download --area=estionia --minzoom=0 --maxzoom=14   `
+    --osm_path=/data/estonia-latest.osm.pbf
 ```
 
 # Serve tiles locally with Martin
