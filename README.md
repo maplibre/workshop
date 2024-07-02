@@ -34,7 +34,7 @@ mv data/output.mbtiles data/estonia.mbtiles
 ```bash
 docker run `
     -e JAVA_TOOL_OPTIONS="-Xmx2g"   `
-    -v "${PWD}/data":/data   `
+    -v "${PWD}/data:/data"   `
     ghcr.io/onthegomap/planetiler   `
     --download --area=estionia --minzoom=0 --maxzoom=14   `
     --osm_path=/data/estonia-latest.osm.pbf
