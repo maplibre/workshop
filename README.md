@@ -71,6 +71,9 @@ docker-compose -f dc-simple.yml up
 
 ```bash
 docker network create dbnet
+# shell 1
 docker-compose -f dc-with-db.yml up db
+# shell 2
 docker-compose -f dc-with-db.yml up osm2pgsql
+docker-compose -f dc-with-db.yml up
 ```
