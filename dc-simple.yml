@@ -32,7 +32,7 @@ services:
   planetiler:
     build:
       context: .
-      dockerfile: Dockerfile.planetiler
+      dockerfile: Dockerfile
     restart: unless-stopped
     volumes:
       - data:/data
