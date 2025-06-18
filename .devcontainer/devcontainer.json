@@ -1,6 +1,6 @@
 {
   "dockerComposeFile": [
-    "../dc-with-db.yml"
+    "../dc-simple.yml"
   ],
   "service": "planetiler"
 }
