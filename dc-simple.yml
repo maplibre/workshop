@@ -30,7 +30,9 @@ services:
       - /data/estonia.mbtiles
 
   planetiler:
-    build: .
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
     restart: unless-stopped
     volumes:
       - data:/data
