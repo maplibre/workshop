@@ -25,7 +25,7 @@ Go to the [workshop repository](https://github.com/maplibre/workshop), in the to
 
 <img src="https://github.com/user-attachments/assets/0a398a4a-cfbe-4275-8c58-9cd92f9d73e3" width="50%" />
 
-After downloading the Docker image that we prepared for you you will be dropped into a shell.
+After downloading the Docker image that we prepared for you you will be dropped into a shell. If not, click the small Plus sign above the terminal window to create another shell.
 
 ## 1. Tile Generation
 
@@ -34,7 +34,7 @@ We already downloaded an OSM extract from [Geofabrik](https://download.geofabrik
 Run the following command.
 
 ```
-java -jar /planetiler.jar -Xmx1g --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/massachusetts.osm.pbf        
+java -jar /planetiler.jar -Xmx1g --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/massachusetts.osm.pbf
 ```
 
 ## 2. Tile Serving
