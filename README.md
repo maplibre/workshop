@@ -37,6 +37,9 @@ Run the following command.
 java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf
 ```
 
+#### Expected Result
+You should see planetiler generate a new file `data/output.mbtiles`
+
 ## 2. Tile Serving
 
 The MBTiles file that was generated in the previous step can be hosted with a tile server. In this workshop we will use Martin, which is pre-installed to the development container.
