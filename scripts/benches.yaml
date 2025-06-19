@@ -1,11 +1,11 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/onthegomap/planetiler/main/planetiler-custommap/planetiler.schema.json
 schema_name: Benches
-schema_description: Benches in Estonia
+schema_description: Benches in Boston
 attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
 sources:
   osm:
     type: osm
-    local_path: /data/estonia-latest.osm.pbf
+    local_path: /data/boston.osm.pbf
 layers:
   - id: bench
     features:
