@@ -11,7 +11,7 @@ Welcome to our workshop organized by [MapLibre](https://maplibre.org/)! We hope 
 
 ## Goal
 
-1. Create your own vector tiles with [Planetiler](https://github.com/onthegomap/planetiler)
+1. Create your own vector tiles with [Planetiler](https://github.com/onthegomap/planetiler).
 2. Host the vector tiles you created with [Martin](https://martin.maplibre.org/).
 3. Learn how create a MapLibre style with [Maputnik](https://github.com/maplibre/maputnik).
 4. Intergrate your map on a web page with [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js).
@@ -20,7 +20,7 @@ Welcome to our workshop organized by [MapLibre](https://maplibre.org/)! We hope 
 
 To make best use of the time available for this workshop, we will use [GitHub Codespaces](https://github.com/features/codespaces) to set up the development environment.
 
-Go to the repository, in the top right click the *Code*, then *Codespaces* and click the plus-button to start a new codespace.
+Go to the [workshop repository](https://github.com/maplibre/workshop), in the top right click the *Code*, then go to the *Codespaces* tab and click the plus button to start a new codespace.
 
 ![alt text](image.png)
 
