@@ -38,7 +38,7 @@ java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 
 ```
 
 #### Expected Result
-You should see planetiler generate a new file `data/output.mbtiles`
+You should see planetiler generate a new file `data/output.mbtiles`.  Use `ll data/output.mbtiles` to see it.
 
 ## 2. Tile Serving
 
