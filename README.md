@@ -76,4 +76,18 @@ Note that we only have detailed tiles in Massachusetts due to the OSM extract th
 
 Try adding some layers. Refer to the [MapLibre Style Spec](https://maplibre.org/maplibre-style-spec/) to see what kind of layers you can add. An easy one might be one for the ocean or other water bodies.
 
-Check out what attributes exist in the Inspect view or refer to the documentation of the [OpenMapTiles Schema], which we use.
+Check out what attributes exist in the Inspect view or refer to the documentation of the [OpenMapTiles Schema](https://openmaptiles.org/schema/), which is the tile schema that Planetiler uses by default.
+
+## 4. Creating a Web Page with MapLibre
+
+When you are happy with the style you are created, go to *Save* in the top bar and then *Create HTML*.
+
+Create an index.html in your Codespace and paste the contents of the HTML file that was downloaded. Next, launch a simple web server and expose it to the internet like before.
+
+```
+python -m http.server 1234
+```
+
+If everything went well, you will have created your own basemap and deployed it in under one hour!
+
+Take a closer look to the generated HMTL to understand how MapLibre GL JS is set up. Explore the [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) documentation to see what APIs exist. Try for example to add markers to the map when you click somewhere.
