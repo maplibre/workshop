@@ -23,6 +23,3 @@ services:
     image: ghcr.io/maplibre/workshop:latest
     restart: unless-stopped
     command: sleep infinity
-
-volumes:
-  data:
