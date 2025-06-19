@@ -2,6 +2,11 @@ name: Build and Push Docker Image
 
 on:
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Docker image tag'
+        required: false
+        default: 'latest'
 
 jobs:
   build-and-push:
@@ -23,6 +28,7 @@ jobs:
       - name: Build and publish Docker image
         run: |
           cd docker
-          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/workshop:latest
+          IMAGE_TAG=${{ github.event.inputs.tag || 'latest' }}
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/workshop:$IMAGE_TAG
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
