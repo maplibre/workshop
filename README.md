@@ -34,7 +34,7 @@ We already downloaded an Boston OSM extract created with [slice.openstreetmap.us
 Run the following command.
 
 ```
-java -jar /planetiler.jar -Xmx1g --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf
+java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/massachusetts.osm.pbf
 ```
 
 ## 2. Tile Serving
@@ -49,7 +49,13 @@ martin data/output.mbtiles
 
 Martin will launch on port 3000. You will get a prompt to expose this port. Expose the port to the internet.
 
-Go to the Ports tab in VS Code to see the public URL for your Martin instance. When you open it you should see the message:
+Go to the Ports tab in VS Code to see the public URL for your Martin instance.
+
+![image](https://github.com/user-attachments/assets/c5bcf8c4-416d-49b1-b0be-2ca04ea6267b)
+
+Make sure it is set to "Public" you can right-click to change the Visibility.
+
+When you open the URL it shows, you should see the message:
 
 ```
 Martin server is running.
