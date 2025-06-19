@@ -34,7 +34,7 @@ We already downloaded an OSM extract from [Geofabrik](https://download.geofabrik
 Run the following command.
 
 ```
-java -jar /planetiler.jar -Xmx1g --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/massachusetts.osm.pbf
+java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/massachusetts.osm.pbf
 ```
 
 ## 2. Tile Serving
