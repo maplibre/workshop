@@ -5,8 +5,9 @@ RUN apt-get update \
       curl \
       openjdk-21-jre-headless \
       git \
-    && rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /data/sources \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /data/sources \
     && curl -L -o /planetiler.jar \
       https://github.com/onthegomap/planetiler/releases/download/v0.9.0/planetiler.jar \
     && curl -L -o /data/sources/massachusetts.osm.pbf \
@@ -17,5 +18,3 @@ RUN apt-get update \
       https://osmdata.openstreetmap.de/download/water-polygons-split-3857.zip \
     && curl -L -o /data/sources/lake_centerline.shp.zip \
       https://github.com/acalcutt/osm-lakelines/releases/download/v12/lake_centerline.shp.zip
-
-ENTRYPOINT ["sleep", "infinity"]
