@@ -44,7 +44,7 @@ The MBTiles file that was generated in the previous step can be hosted with a ti
 Run the following command:
 
 ```
-/martin data/output.mbtiles
+martin data/output.mbtiles
 ```
 
 Martin will launch on port 3000. You will get a prompt to expose this port. Expose the port to the internet.
