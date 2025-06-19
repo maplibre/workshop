@@ -20,9 +20,9 @@ Welcome to our workshop organized by [MapLibre](https://maplibre.org/)! We hope 
 
 To make best use of the time available for this workshop, we will use [GitHub Codespaces](https://github.com/features/codespaces) to set up the development environment.
 
-Go to the [workshop repository](https://github.com/maplibre/workshop), in the top right click the *Code*, then go to the *Codespaces* tab and click the plus button to start a new codespace.
+Go to the [workshop repository](https://github.com/maplibre/workshop), in the top right click the *Code*, then go to the *Codespaces* tab and click the right button to start a new codespace.
 
-![alt text](image.png)
+![image](https://github.com/user-attachments/assets/0a398a4a-cfbe-4275-8c58-9cd92f9d73e3)
 
 After downloading the Docker image that we prepared for you you will be dropped into a shell.
 
