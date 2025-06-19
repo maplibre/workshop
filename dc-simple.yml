@@ -17,6 +17,6 @@ services:
       - "80"
 
   devenv:
-    image: ghcr.io/maplibre/workshop:latest
+    image: ghcr.io/maplibre/workshop:boston
     restart: unless-stopped
     command: sleep infinity
