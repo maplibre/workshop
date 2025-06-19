@@ -5,7 +5,7 @@ attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">
 sources:
   osm:
     type: osm
-    local_path: /data/boston.osm.pbf
+    local_path: /data/sources/boston.osm.pbf
 layers:
   - id: bench
     features:
