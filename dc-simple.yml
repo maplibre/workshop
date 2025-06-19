@@ -19,21 +19,9 @@ services:
     expose:
       - "80"
 
-  martin:
-    image: ghcr.io/maplibre/martin:latest
-    restart: unless-stopped
-    expose:
-      - "3000"
-    volumes:
-      - data:/data
-    command:
-      - /data/estonia.mbtiles
-
-  planetiler:
+  devenv:
     image: ghcr.io/maplibre/workshop:latest
     restart: unless-stopped
-    volumes:
-      - data:/data
     command: sleep infinity
 
 volumes:
