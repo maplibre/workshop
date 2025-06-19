@@ -1,8 +1,7 @@
 FROM ubuntu:24.04
 
-RUN apt-get update
-
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
       curl \
       openjdk-21-jre-headless \
     && rm -rf /var/lib/apt/lists/* \
