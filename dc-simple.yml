@@ -36,6 +36,7 @@ services:
     restart: unless-stopped
     volumes:
       - data:/data
+    command: sleep infinity
 
 volumes:
   data:
