@@ -29,12 +29,12 @@ After downloading the Docker image that we prepared for you you will be dropped 
 
 ## 1. Tile Generation
 
-We already downloaded an Boston OSM extract created with [slice.openstreetmap.us](https://slice.openstreetmap.us/).
+We already downloaded a Boston OSM extract created with [slice.openstreetmap.us](https://slice.openstreetmap.us/).
 
 Run the following command.
 
 ```
-java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/massachusetts.osm.pbf
+java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf
 ```
 
 ## 2. Tile Serving
