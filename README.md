@@ -98,3 +98,19 @@ python -m http.server 1234
 If everything went well, you will have created your own basemap and deployed it in under one hour!
 
 Take a closer look to the generated HMTL to understand how MapLibre GL JS is set up. Explore the [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) documentation to see what APIs exist. Try for example to add markers to the map when you click somewhere.
+
+## 5. Creating a custom overlay with Planetiler
+
+[`scripts/benches.yaml`](./scripts/benches.yaml) describes how to create [custom map tiles](https://github.com/onthegomap/planetiler/blob/main/planetiler-custommap/README.md) with planetiler containing all of the benches in Boston.  Run it using the following command:
+
+```
+java -jar /planetiler.jar scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf --output=data/benches.mbtiles
+```
+
+Then run martin again to serve those tiles:
+
+```
+martin data/output.mbtiles data/benches.mbtiles
+```
+
+And you can add the source to Maputnik using `https://{public URL for your Martin instance}/benches`
