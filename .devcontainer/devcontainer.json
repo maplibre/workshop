@@ -2,5 +2,5 @@
   "dockerComposeFile": [
     "../dc-simple.yml"
   ],
-  "service": "planetiler"
+  "service": "devenv"
 }
