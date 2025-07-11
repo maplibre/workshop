@@ -33,17 +33,17 @@ The workshop now includes a complete Docker Compose setup that provides all the 
 
 1. **Generate tiles** (run once):
    ```bash
-   ./scripts/generate-tiles.sh
+   docker compose --profile setup up planetiler
    ```
 
 2. **Start the workshop environment**:
    ```bash
-   ./scripts/start-workshop.sh
+   docker compose up -d
    ```
 
 3. **Import OSM data to PostgreSQL** (optional):
    ```bash
-   ./scripts/import-osm-data.sh
+   docker compose --profile import up osm2pgsql
    ```
 
 Once started, you can access:
@@ -55,10 +55,10 @@ Once started, you can access:
 
 We already downloaded a Boston OSM extract created with [slice.openstreetmap.us](https://slice.openstreetmap.us/).
 
-### Option A: Use the automated script (recommended)
+### Option A: Use Docker Compose (recommended)
 
 ```bash
-./scripts/generate-tiles.sh
+docker compose --profile setup up planetiler
 ```
 
 This will generate both the base map tiles and bench overlay tiles automatically.
@@ -88,10 +88,10 @@ Use `ls -la data/*.mbtiles` to see them.
 
 The MBTiles files that were generated in the previous step can be hosted with a tile server. In this workshop we use Martin, which is included in our Docker Compose setup.
 
-### Option A: Use the complete workshop environment (recommended)
+### Option A: Use Docker Compose (recommended)
 
 ```bash
-./scripts/start-workshop.sh
+docker compose up -d
 ```
 
 This starts all services including Martin tile server, accessible at http://localhost:8080/tiles/
@@ -186,10 +186,10 @@ The workshop includes a PostgreSQL database with PostGIS extension for storing a
 
 ### Import OSM data to PostgreSQL
 
-Use the provided script to import bicycle parking data:
+Run the following command to import bicycle parking data:
 
 ```bash
-./scripts/import-osm-data.sh
+docker compose --profile import up osm2pgsql
 ```
 
 This imports bicycle parking locations from the Boston OSM extract into PostgreSQL using osm2pgsql.
@@ -213,7 +213,7 @@ Martin is configured to serve this data as vector tiles at the `/bicycle_parking
 
 ### Manual OSM import
 
-If you want to run the import manually:
+The import command above runs automatically with the correct profile:
 
 ```bash
 docker compose --profile import up osm2pgsql

@@ -12,8 +12,6 @@ services:
     depends_on:
       - martin
       - maputnik
-    networks:
-      - workshop
 
   # Maputnik map style editor
   maputnik:
@@ -21,8 +19,6 @@ services:
     restart: unless-stopped
     expose:
       - "80"
-    networks:
-      - workshop
 
   # Martin tile server
   martin:
@@ -38,8 +34,6 @@ services:
       - postgresql://postgres:password@db/estonia
     depends_on:
       - db
-    networks:
-      - workshop
 
   # Development environment with planetiler and martin CLI tools
   devenv:
@@ -49,8 +43,6 @@ services:
     volumes:
       - ./data:/data
       - ./scripts:/scripts
-    networks:
-      - workshop
 
   # Planetiler service to generate MBTiles from OSM data
   planetiler:
@@ -69,8 +61,6 @@ services:
       java -jar /planetiler.jar /scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf --output=/output/benches.mbtiles &&
       echo 'Tile generation complete!'
       "
-    networks:
-      - workshop
 
   # PostgreSQL database with PostGIS extension
   db:
@@ -82,8 +72,6 @@ services:
       - POSTGRES_PASSWORD=password
     ports:
       - "5432:5432"
-    networks:
-      - workshop
     # Uncomment to persist data across container restarts
     # volumes:
     #   - ./pg_data:/var/lib/postgresql/data
@@ -107,9 +95,3 @@ services:
       - ./scripts:/scripts
     depends_on:
       - db
-    networks:
-      - workshop
-
-networks:
-  workshop:
-    driver: bridge
