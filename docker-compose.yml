@@ -1,0 +1,97 @@
+services:
+  # Frontend proxy to serve the web interface and route requests
+  frontend:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      # These two ports must be identical, and must match the one in nginx.conf
+      - "8080:8080"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./html:/usr/share/nginx/html
+    depends_on:
+      - martin
+      - maputnik
+
+  # Maputnik map style editor
+  maputnik:
+    image: ghcr.io/maplibre/maputnik:main
+    restart: unless-stopped
+    expose:
+      - "80"
+
+  # Martin tile server
+  martin:
+    image: ghcr.io/maplibre/martin:latest
+    restart: unless-stopped
+    expose:
+      - "3000"
+    volumes:
+      - ./data:/data
+    command:
+      - /data/output.mbtiles
+      - /data/benches.mbtiles
+      - postgresql://postgres:password@db/estonia
+    depends_on:
+      - db
+
+  # Development environment with planetiler and martin CLI tools
+  devenv:
+    image: ghcr.io/maplibre/workshop:boston
+    restart: unless-stopped
+    command: sleep infinity
+    volumes:
+      - ./data:/data
+      - ./scripts:/scripts
+
+  # Planetiler service to generate MBTiles from OSM data
+  planetiler:
+    image: ghcr.io/maplibre/workshop:boston
+    restart: 'no'
+    profiles: ["setup"]
+    volumes:
+      - ./data:/output
+      - ./scripts:/scripts
+    working_dir: /
+    command: >
+      sh -c "
+      echo 'Generating base map tiles...' &&
+      java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf --output=/output/output.mbtiles &&
+      echo 'Generating bench overlay tiles...' &&
+      java -jar /planetiler.jar /scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf --output=/output/benches.mbtiles &&
+      echo 'Tile generation complete!'
+      "
+
+  # PostgreSQL database with PostGIS extension
+  db:
+    image: postgis/postgis:16-3.4-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=estonia
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+    # Uncomment to persist data across container restarts
+    # volumes:
+    #   - ./pg_data:/var/lib/postgresql/data
+
+  # osm2pgsql service to import OSM data into PostgreSQL
+  osm2pgsql:
+    profiles: ["import"]
+    image: ghcr.io/maplibre/workshop:boston
+    restart: 'no'
+    command: >
+      sh -c "
+      echo 'Installing osm2pgsql...' &&
+      apt-get update && apt-get install -y osm2pgsql &&
+      echo 'Importing OSM data...' &&
+      osm2pgsql -d postgresql://postgres:password@db/estonia -O flex -S /scripts/bicycle_parking.lua /data/sources/boston.osm.pbf &&
+      echo 'OSM data import complete!'
+      "
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db/estonia
+    volumes:
+      - ./scripts:/scripts
+    depends_on:
+      - db
