@@ -27,27 +27,79 @@ Go to the [workshop repository](https://github.com/maplibre/workshop), in the to
 
 After downloading the Docker image that we prepared for you you will be dropped into a shell. If not, click the small Plus sign above the terminal window to create another shell.
 
+### Quick Start
+
+The workshop now includes a complete Docker Compose setup that provides all the services you need:
+
+1. **Generate tiles** (run once):
+   ```bash
+   ./scripts/generate-tiles.sh
+   ```
+
+2. **Start the workshop environment**:
+   ```bash
+   ./scripts/start-workshop.sh
+   ```
+
+3. **Import OSM data to PostgreSQL** (optional):
+   ```bash
+   ./scripts/import-osm-data.sh
+   ```
+
+Once started, you can access:
+- 📖 **Main workshop page**: http://localhost:8080
+- 🎨 **Maputnik editor**: http://localhost:8080/maputnik/
+- 🗺️ **Martin tile server**: http://localhost:8080/tiles/
+
 ## 1. Tile Generation
 
 We already downloaded a Boston OSM extract created with [slice.openstreetmap.us](https://slice.openstreetmap.us/).
 
-Run the following command.
+### Option A: Use the automated script (recommended)
 
+```bash
+./scripts/generate-tiles.sh
 ```
-java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf
+
+This will generate both the base map tiles and bench overlay tiles automatically.
+
+### Option B: Manual tile generation
+
+Run the following command to generate base map tiles:
+
+```bash
+java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf --output=/data/output.mbtiles
+```
+
+To generate bench overlay tiles:
+
+```bash
+java -jar /planetiler.jar /scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf --output=/data/benches.mbtiles
 ```
 
 #### Expected Result
-You should see planetiler generate a new file `data/output.mbtiles`.  Use `ll data/output.mbtiles` to see it.
+You should see planetiler generate new files:
+- `data/output.mbtiles` (base map)
+- `data/benches.mbtiles` (bench overlay)
+
+Use `ls -la data/*.mbtiles` to see them.
 
 ## 2. Tile Serving
 
-The MBTiles file that was generated in the previous step can be hosted with a tile server. In this workshop we will use Martin, which is pre-installed to the development container.
+The MBTiles files that were generated in the previous step can be hosted with a tile server. In this workshop we use Martin, which is included in our Docker Compose setup.
 
-Run the following command:
+### Option A: Use the complete workshop environment (recommended)
 
+```bash
+./scripts/start-workshop.sh
 ```
-martin data/output.mbtiles
+
+This starts all services including Martin tile server, accessible at http://localhost:8080/tiles/
+
+### Option B: Run Martin manually
+
+```bash
+martin data/output.mbtiles data/benches.mbtiles
 ```
 
 Martin will launch on port 3000. You will get a prompt to expose this port. Expose the port to the internet.
@@ -76,9 +128,17 @@ Go to the catalog, and then to `/output`. This is a TileJSON endpoint which desc
 
 ## 3. Styling your map
 
+### Using the integrated setup
+
+With the complete workshop environment running, you can access Maputnik directly at http://localhost:8080/maputnik/
+
+The Martin tile server is available at http://localhost:8080/tiles/ for use in Maputnik.
+
+### Manual setup
+
 Go to [Maputnik](https://maplibre.org/maputnik), click open and open the empty style. Next, add a new source. Use the URL of your Martin instance with the `/output` TileJSON endpoint.
 
-Since you don't have any layers, you will not see anything visualized. Hower, you can switch from the 'Map' view to the 'Inspect' view to see the data contained in your tiles. If it looks something like this, you are doing great so far!
+Since you don't have any layers, you will not see anything visualized. However, you can switch from the 'Map' view to the 'Inspect' view to see the data contained in your tiles. If it looks something like this, you are doing great so far!
 
 ![alt text](image-1.png)
 
@@ -104,16 +164,59 @@ Take a closer look to the generated HMTL to understand how MapLibre GL JS is set
 
 ## 5. Creating a custom overlay with Planetiler
 
-[`scripts/benches.yaml`](./scripts/benches.yaml) describes how to create [custom map tiles](https://github.com/onthegomap/planetiler/blob/main/planetiler-custommap/README.md) with planetiler containing all of the benches in Boston.  Run it using the following command:
+[`scripts/benches.yaml`](./scripts/benches.yaml) describes how to create [custom map tiles](https://github.com/onthegomap/planetiler/blob/main/planetiler-custommap/README.md) with planetiler containing all of the benches in Boston.  
 
-```
+If you used the automated setup, this was already done for you. Otherwise, run it using the following command:
+
+```bash
 java -jar /planetiler.jar scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf --output=data/benches.mbtiles
 ```
 
 Then run martin again to serve those tiles:
 
-```
+```bash
 martin data/output.mbtiles data/benches.mbtiles
 ```
 
 And you can add the source to Maputnik using `https://{public URL for your Martin instance}/benches`
+
+## 6. Working with PostgreSQL and PostGIS
+
+The workshop includes a PostgreSQL database with PostGIS extension for storing and serving vector data.
+
+### Import OSM data to PostgreSQL
+
+Use the provided script to import bicycle parking data:
+
+```bash
+./scripts/import-osm-data.sh
+```
+
+This imports bicycle parking locations from the Boston OSM extract into PostgreSQL using osm2pgsql.
+
+### Verify the import
+
+Check the imported data:
+
+```bash
+docker compose exec db psql -U postgres -d estonia -c "SELECT COUNT(*) FROM bicycle_parking;"
+```
+
+### Access the database
+
+The PostgreSQL database is available at `localhost:5432` with:
+- Database: `estonia`
+- User: `postgres` 
+- Password: `password`
+
+Martin is configured to serve this data as vector tiles at the `/bicycle_parking` endpoint.
+
+### Manual OSM import
+
+If you want to run the import manually:
+
+```bash
+docker compose --profile import up osm2pgsql
+```
+
+The import script ([`scripts/bicycle_parking.lua`](./scripts/bicycle_parking.lua)) defines how OSM bicycle parking amenities are processed and stored in PostgreSQL.
