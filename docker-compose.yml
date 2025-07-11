@@ -58,15 +58,15 @@ services:
     restart: 'no'
     profiles: ["setup"]
     volumes:
-      - ./data:/data
+      - ./data:/output
       - ./scripts:/scripts
     working_dir: /
     command: >
       sh -c "
       echo 'Generating base map tiles...' &&
-      java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf --output=/data/output.mbtiles &&
+      java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf --output=/output/output.mbtiles &&
       echo 'Generating bench overlay tiles...' &&
-      java -jar /planetiler.jar /scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf --output=/data/benches.mbtiles &&
+      java -jar /planetiler.jar /scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf --output=/output/benches.mbtiles &&
       echo 'Tile generation complete!'
       "
     networks:
@@ -91,20 +91,19 @@ services:
   # osm2pgsql service to import OSM data into PostgreSQL
   osm2pgsql:
     profiles: ["import"]
-    image: iboates/osm2pgsql:latest
+    image: ghcr.io/maplibre/workshop:boston
     restart: 'no'
-    command:
-      - -d
-      - postgresql://postgres:password@db/estonia
-      - -O
-      - flex
-      - -S
-      - /scripts/bicycle_parking.lua
-      - /data/sources/boston.osm.pbf
+    command: >
+      sh -c "
+      echo 'Installing osm2pgsql...' &&
+      apt-get update && apt-get install -y osm2pgsql &&
+      echo 'Importing OSM data...' &&
+      osm2pgsql -d postgresql://postgres:password@db/estonia -O flex -S /scripts/bicycle_parking.lua /data/sources/boston.osm.pbf &&
+      echo 'OSM data import complete!'
+      "
     environment:
       - DATABASE_URL=postgresql://postgres:password@db/estonia
     volumes:
-      - ./data:/data
       - ./scripts:/scripts
     depends_on:
       - db
