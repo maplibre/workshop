@@ -115,3 +115,11 @@ martin data/output.mbtiles data/benches.mbtiles
 ```
 
 And you can add the source to Maputnik using `https://{public URL for your Martin instance}/benches`
+
+## Connect to the Database
+
+Test the connection to the PostgreSQL database that is running in the container. You can use the following command to connect to the database. Use `quit` or Ctrl-D to exit the psql shell.
+
+```sh
+psql postgres://postgres:password@db/maplibre
+```

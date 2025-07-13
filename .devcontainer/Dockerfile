@@ -5,7 +5,9 @@ RUN apt-get update \
       curl \
       openjdk-21-jre-headless \
       postgresql-client \
-      git
+      git \
+    && locale-gen en_US en_US.UTF-8 \
+    && dpkg-reconfigure locales
 
 RUN curl -L --silent --show-error --fail -o /planetiler.jar \
       https://github.com/onthegomap/planetiler/releases/download/v0.9.0/planetiler.jar \
