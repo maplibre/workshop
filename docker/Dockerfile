@@ -1,11 +1,12 @@
-FROM ubuntu:24.04 AS builder
+FROM ubuntu:25.10 AS builder
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
       curl \
       openjdk-21-jre-headless \
       postgresql-client \
-      git
+      git \
+      osm2pgsql
 
 RUN curl -L --silent --show-error --fail -o /planetiler.jar \
       https://github.com/onthegomap/planetiler/releases/download/v0.9.0/planetiler.jar \
