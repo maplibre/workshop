@@ -14,11 +14,11 @@ RUN curl -L --silent --show-error --fail -o /planetiler.jar \
     && rm /martin.tar.gz \
     && mkdir -p /data/sources
 
-#RUN curl -L --silent --show-error --fail -o /data/sources/boston.osm.pbf \
-#      https://pub-23a2836dfd424e69b0ce72e02abf2492.r2.dev/boston.osm.pbf
-#RUN curl -L --silent --show-error --fail -o /data/sources/natural_earth_vector.sqlite.zip \
-#      https://naciscdn.org/naturalearth/packages/natural_earth_vector.sqlite.zip
-#RUN curl -L --silent --show-error --fail -o /data/sources/water-polygons-split-3857.zip \
-#      https://osmdata.openstreetmap.de/download/water-polygons-split-3857.zip
-#RUN curl -L --silent --show-error --fail -o /data/sources/lake_centerline.shp.zip \
-#      https://github.com/acalcutt/osm-lakelines/releases/download/v12/lake_centerline.shp.zip
+RUN curl -L --silent --show-error --fail -o /data/sources/boston.osm.pbf \
+      https://pub-23a2836dfd424e69b0ce72e02abf2492.r2.dev/boston.osm.pbf
+RUN curl -L --silent --show-error --fail -o /data/sources/natural_earth_vector.sqlite.zip \
+      https://naciscdn.org/naturalearth/packages/natural_earth_vector.sqlite.zip
+RUN curl -L --silent --show-error --fail -o /data/sources/water-polygons-split-3857.zip \
+      https://osmdata.openstreetmap.de/download/water-polygons-split-3857.zip
+RUN curl -L --silent --show-error --fail -o /data/sources/lake_centerline.shp.zip \
+      https://github.com/acalcutt/osm-lakelines/releases/download/v12/lake_centerline.shp.zip
