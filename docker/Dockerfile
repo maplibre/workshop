@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:24.04 AS builder
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -22,3 +22,23 @@ RUN curl -L --silent --show-error --fail -o /data/sources/water-polygons-split-3
       https://osmdata.openstreetmap.de/download/water-polygons-split-3857.zip
 RUN curl -L --silent --show-error --fail -o /data/sources/lake_centerline.shp.zip \
       https://github.com/acalcutt/osm-lakelines/releases/download/v12/lake_centerline.shp.zip
+
+RUN java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/boston.osm.pbf --output=/data/boston.mbtiles
+
+FROM ubuntu:24.04
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+      curl \
+      openjdk-21-jre-headless \
+      git
+
+RUN curl -L --silent --show-error --fail -o /planetiler.jar \
+      https://github.com/onthegomap/planetiler/releases/download/v0.9.0/planetiler.jar \
+    && curl -L --silent --show-error --fail -o /martin.tar.gz \
+      https://github.com/maplibre/martin/releases/download/v0.17.0/martin-x86_64-unknown-linux-gnu.tar.gz \
+    && tar -xzf /martin.tar.gz -C /usr/local/bin \
+    && rm /martin.tar.gz \
+    && mkdir -p /data/sources
+
+COPY --from=builder /data/boston.mbtiles /data/boston.mbtiles
