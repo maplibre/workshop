@@ -3,5 +3,12 @@
     "../docker-compose.yml"
   ],
   "forwardPorts": [8080],
-  "service": "devenv"
+  "service": "devenv",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.sendKeybindingsToShell": true,
+      },
+    },
+  },
 }

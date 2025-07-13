@@ -43,4 +43,4 @@ RUN curl -L --silent --show-error --fail -o /planetiler.jar \
     && rm /martin.tar.gz \
     && mkdir -p /data/sources
 
-COPY --from=builder /data/boston.mbtiles /data/boston.mbtiles
+COPY --from=builder /data/pre-built-boston.mbtiles /data/pre-built-boston.mbtiles
