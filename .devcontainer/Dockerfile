@@ -1,4 +1,4 @@
-FROM ubuntu:24.04 AS builder
+FROM ubuntu:25.10 AS builder
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -6,6 +6,7 @@ RUN apt-get update \
       openjdk-21-jre-headless \
       postgresql-client \
       git \
+      osm2pgsql \
     && locale-gen en_US en_US.UTF-8 \
     && dpkg-reconfigure locales
 
@@ -28,14 +29,17 @@ RUN curl -L --silent --show-error --fail -o /data/sources/lake_centerline.shp.zi
 
 RUN java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf --output=/data/pre-built-boston.mbtiles
 
-FROM ubuntu:24.04
+FROM ubuntu:25.10
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
       curl \
       openjdk-21-jre-headless \
       postgresql-client \
-      git
+      git \
+      osm2pgsql \
+    && locale-gen en_US en_US.UTF-8 \
+    && dpkg-reconfigure locales
 
 RUN curl -L --silent --show-error --fail -o /planetiler.jar \
       https://github.com/onthegomap/planetiler/releases/download/v0.9.0/planetiler.jar \
