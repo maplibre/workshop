@@ -2,5 +2,6 @@
   "dockerComposeFile": [
     "../docker-compose.yml"
   ],
+  "forwardPorts": [8080],
   "service": "devenv"
 }

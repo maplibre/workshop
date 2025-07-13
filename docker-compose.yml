@@ -1,6 +1,6 @@
 services:
   devenv:
-    image: ghcr.io/maplibre/workshop:empty
+    image: ghcr.io/maplibre/workshop:prebuilt-boston
     restart: unless-stopped
     command: sleep infinity
 
