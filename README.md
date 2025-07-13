@@ -7,8 +7,6 @@ Welcome to our workshop organized by [MapLibre](https://maplibre.org/)! We hope 
 ## Your Hosts
 
 - [Yuri Astrakhan](https://github.com/nyurik)
-- [Mike Barry](https://github.com/msbarry)
-- [Bart Louwers](https://github.com/louwers)
 
 ## Goal
 
