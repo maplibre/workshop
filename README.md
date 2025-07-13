@@ -122,4 +122,6 @@ Test the connection to the PostgreSQL database that is running in the container.
 
 ```sh
 psql postgres://postgres:password@db/maplibre
+
+osm2pgsql -d postgresql://postgres:password@db/maplibre -O flex -S /scripts/bicycle_parking.lua /data/estonia-latest.osm.pbf
 ```
