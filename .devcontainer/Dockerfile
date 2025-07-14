@@ -26,7 +26,7 @@ RUN curl -L --silent --show-error --fail -o /data/sources/water-polygons-split-3
 RUN curl -L --silent --show-error --fail -o /data/sources/lake_centerline.shp.zip \
       https://github.com/acalcutt/osm-lakelines/releases/download/v12/lake_centerline.shp.zip
 
-RUN java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf --output=/data/pre-built-boston.mbtiles
+RUN java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/mostar.osm.pbf --output=/data/pre-built-mostar.mbtiles
 
 #FROM ubuntu:25.10
 #

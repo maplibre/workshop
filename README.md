@@ -27,12 +27,12 @@ After downloading the Docker image that we prepared for you you will be dropped 
 
 ## 1. Tile Generation
 
-We have already downloaded a Boston OSM extract created with [slice.openstreetmap.us](https://slice.openstreetmap.us/).
+We have already downloaded a Mostar OSM extract created with [slice.openstreetmap.us](https://slice.openstreetmap.us/).
 
 Run the following command.
 
 ```
-java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf
+java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/mostar.osm.pbf
 ```
 
 #### Expected Result
@@ -102,10 +102,10 @@ Take a closer look to the generated HMTL to understand how MapLibre GL JS is set
 
 ## 5. Creating a custom overlay with Planetiler
 
-[`scripts/benches.yaml`](./scripts/benches.yaml) describes how to create [custom map tiles](https://github.com/onthegomap/planetiler/blob/main/planetiler-custommap/README.md) with planetiler containing all of the benches in Boston.  Run it using the following command:
+[`scripts/benches.yaml`](./scripts/benches.yaml) describes how to create [custom map tiles](https://github.com/onthegomap/planetiler/blob/main/planetiler-custommap/README.md) with planetiler containing all of the benches in Mostar.  Run it using the following command:
 
 ```
-java -jar /planetiler.jar scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf --output=data/benches.mbtiles
+java -jar /planetiler.jar scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/mostar.osm.pbf --output=data/benches.mbtiles
 ```
 
 Then run martin again to serve those tiles:
@@ -123,7 +123,7 @@ Test the connection to the PostgreSQL database that is running in the container.
 ```sh
 psql postgres://postgres:password@db/maplibre
 
-osm2pgsql -d postgresql://postgres:password@db/maplibre -O flex -S scripts/bicycle_parking.lua /data/sources/boston.osm.pbf
+osm2pgsql -d postgresql://postgres:password@db/maplibre -O flex -S scripts/bicycle_parking.lua /data/sources/mostar.osm.pbf
 
 martin 
 ```
