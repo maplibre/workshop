@@ -28,22 +28,22 @@ RUN curl -L --silent --show-error --fail -o /data/sources/lake_centerline.shp.zi
 
 RUN java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/mostar.osm.pbf --output=/data/pre-built-mostar.mbtiles
 
-#FROM ubuntu:25.10
-#
-#RUN apt-get update \
-#    && apt-get install -y --no-install-recommends \
-#      curl \
-#      openjdk-21-jre-headless \
-#      postgresql-client \
-#      git \
-#      osm2pgsql
-#
-#RUN curl -L --silent --show-error --fail -o /planetiler.jar \
-#      https://github.com/onthegomap/planetiler/releases/download/v0.9.0/planetiler.jar \
-#    && curl -L --silent --show-error --fail -o /martin.tar.gz \
-#      https://github.com/maplibre/martin/releases/download/v0.17.0/martin-x86_64-unknown-linux-gnu.tar.gz \
-#    && tar -xzf /martin.tar.gz -C /usr/local/bin \
-#    && rm /martin.tar.gz \
-#    && mkdir -p /data/sources
-#
-#COPY --from=builder /data/pre-built-boston.mbtiles /data/pre-built-boston.mbtiles
+FROM ubuntu:25.10
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+      curl \
+      openjdk-21-jre-headless \
+      postgresql-client \
+      git \
+      osm2pgsql
+
+RUN curl -L --silent --show-error --fail -o /planetiler.jar \
+      https://github.com/onthegomap/planetiler/releases/download/v0.9.0/planetiler.jar \
+    && curl -L --silent --show-error --fail -o /martin.tar.gz \
+      https://github.com/maplibre/martin/releases/download/v0.17.0/martin-x86_64-unknown-linux-gnu.tar.gz \
+    && tar -xzf /martin.tar.gz -C /usr/local/bin \
+    && rm /martin.tar.gz \
+    && mkdir -p /data/sources
+
+COPY --from=builder /data/pre-built-mostar.mbtiles /data/pre-built-mostar.mbtiles
