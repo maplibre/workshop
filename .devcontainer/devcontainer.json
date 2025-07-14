@@ -2,7 +2,7 @@
   "dockerComposeFile": [
     "docker-compose.yml"
   ],
-  "forwardPorts": [8080],
+//  "forwardPorts": [8080],
   "service": "devenv",
   "customizations": {
     "vscode": {
