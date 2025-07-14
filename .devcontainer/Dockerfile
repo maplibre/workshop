@@ -1,5 +1,4 @@
-FROM ubuntu:25.10
-# AS builder
+FROM ubuntu:25.10 AS builder
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
