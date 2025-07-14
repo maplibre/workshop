@@ -77,6 +77,9 @@ docker-compose -f dc-with-db.yml up db
 # shell 2
 docker-compose -f dc-with-db.yml up osm2pgsql
 docker-compose -f dc-with-db.yml up
+ 
+ 
+osm2pgsql -d postgresql://postgres:password@db/mostar -O flex -S /scripts/bicycle_parking.lua /data/mostar.osm.pbf
 ```
 
 Add `http://localhost:8080/tiles/bicycle_parking` data source to Maputnik.

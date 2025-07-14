@@ -113,16 +113,18 @@ Take a closer look to the generated HMTL to understand how MapLibre GL JS is set
 [`scripts/benches.yaml`](./scripts/benches.yaml) describes how to create [custom map tiles](https://github.com/onthegomap/planetiler/blob/main/planetiler-custommap/README.md) with planetiler containing all of the benches in Mostar.  Run it using the following command:
 
 ```
-java -jar /planetiler.jar scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/mostar.osm.pbf --output=data/benches.mbtiles
+java -jar /planetiler.jar scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/mostar.osm.pbf --output=/data/benches.mbtiles
 ```
 
 Then run martin again to serve those tiles:
 
 ```
-martin /data/output.mbtiles data/benches.mbtiles
+martin /data/mostar.mbtiles /data/benches.mbtiles
 ```
 
-And you can add the source to Maputnik using `https://{public URL for your Martin instance}/benches`
+In maputnik, add the new source using `https://{public URL for your Martin instance}/benches` - lets call it `benches`. You can then add a new layer to the map using the `benches` source. For example, you can add a circle layer that shows benches in Mostar.
+
+![maputnik](assets/add-source.png)
 
 ## Connect to the Database
 
@@ -133,5 +135,5 @@ psql postgres://postgres:password@db/maplibre
 
 osm2pgsql -d postgresql://postgres:password@db/maplibre -O flex -S scripts/bicycle_parking.lua /data/sources/mostar.osm.pbf
 
-martin 
+martin /data/mostar.mbtiles postgres://postgres:password@db/maplibre
 ```
