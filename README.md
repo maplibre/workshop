@@ -1,6 +1,6 @@
 # Make your own base map or overlay tiles with MapLibre stack and Planetiler
 
-<img src="https://2025.europe.foss4g.org/images/logo1.png" width="30%" />
+<img src="https://2025.europe.foss4g.org/images/logo1.png" width="30%" alt="logo" />
 
 Welcome to our workshop organized by [MapLibre](https://maplibre.org/)! We hope you will have fun and learn something useful.
 
@@ -12,22 +12,22 @@ Welcome to our workshop organized by [MapLibre](https://maplibre.org/)! We hope 
 
 1. Create your own vector tiles with [Planetiler](https://github.com/onthegomap/planetiler).
 2. Host the vector tiles you created with [Martin](https://martin.maplibre.org/).
-3. Learn how create a MapLibre style with [Maputnik](https://github.com/maplibre/maputnik).
-4. Intergrate your map on a web page with [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js).
+3. Learn how to create a MapLibre style with [Maputnik](https://github.com/maplibre/maputnik).
+4. Integrate your map on a web page with [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js).
 
 ## Setting up Development Environment
 
-To make best use of the time available for this workshop, we will use [GitHub Codespaces](https://github.com/features/codespaces) to set up the development environment.
+To make the best use of the time available for this workshop, we will use [GitHub Codespaces](https://github.com/features/codespaces) to set up the development environment.
 
 Go to the [workshop repository](https://github.com/maplibre/workshop), in the top right click the *Code*, then go to the *Codespaces* tab and click the right button to start a new codespace.
 
-<img src="https://github.com/user-attachments/assets/0a398a4a-cfbe-4275-8c58-9cd92f9d73e3" width="50%" />
+<img src="https://github.com/user-attachments/assets/0a398a4a-cfbe-4275-8c58-9cd92f9d73e3" width="50%"  alt="codespaces"/>
 
 After downloading the Docker image that we prepared for you you will be dropped into a shell. If not, click the small Plus sign above the terminal window to create another shell.
 
 ## 1. Tile Generation
 
-We already downloaded a Boston OSM extract created with [slice.openstreetmap.us](https://slice.openstreetmap.us/).
+We have already downloaded a Boston OSM extract created with [slice.openstreetmap.us](https://slice.openstreetmap.us/).
 
 Run the following command.
 
@@ -111,7 +111,7 @@ java -jar /planetiler.jar scripts/benches.yaml --download_dir=/data/sources --mi
 Then run martin again to serve those tiles:
 
 ```
-martin data/output.mbtiles data/benches.mbtiles
+martin d    ata/output.mbtiles data/benches.mbtiles
 ```
 
 And you can add the source to Maputnik using `https://{public URL for your Martin instance}/benches`
@@ -123,5 +123,7 @@ Test the connection to the PostgreSQL database that is running in the container.
 ```sh
 psql postgres://postgres:password@db/maplibre
 
-osm2pgsql -d postgresql://postgres:password@db/maplibre -O flex -S /scripts/bicycle_parking.lua /data/estonia-latest.osm.pbf
+osm2pgsql -d postgresql://postgres:password@db/maplibre -O flex -S scripts/bicycle_parking.lua /data/sources/boston.osm.pbf
+
+martin 
 ```
