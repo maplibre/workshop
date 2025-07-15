@@ -1,6 +1,14 @@
 {
   "dockerComposeFile": [
-    "../dc-simple.yml"
+    "docker-compose.yml"
   ],
-  "service": "devenv"
+//  "forwardPorts": [8080],
+  "service": "devenv",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.sendKeybindingsToShell": true,
+      },
+    },
+  },
 }

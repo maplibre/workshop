@@ -1,53 +1,51 @@
 # Make your own base map or overlay tiles with MapLibre stack and Planetiler
 
-<img src="https://openstreetmap.us/img/pages/sotmus/2025/logo.png" width="30%" />
+<img src="https://2025.europe.foss4g.org/images/logo1.png" width="30%" alt="logo" />
 
 Welcome to our workshop organized by [MapLibre](https://maplibre.org/)! We hope you will have fun and learn something useful.
 
 ## Your Hosts
 
 - [Yuri Astrakhan](https://github.com/nyurik)
-- [Mike Barry](https://github.com/msbarry)
-- [Bart Louwers](https://github.com/louwers)
 
 ## Goal
 
 1. Create your own vector tiles with [Planetiler](https://github.com/onthegomap/planetiler).
 2. Host the vector tiles you created with [Martin](https://martin.maplibre.org/).
-3. Learn how create a MapLibre style with [Maputnik](https://github.com/maplibre/maputnik).
-4. Intergrate your map on a web page with [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js).
+3. Learn how to create a MapLibre style with [Maputnik](https://github.com/maplibre/maputnik).
+4. Integrate your map on a web page with [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js).
 
 ## Setting up Development Environment
 
-To make best use of the time available for this workshop, we will use [GitHub Codespaces](https://github.com/features/codespaces) to set up the development environment.
+To make the best use of the time available for this workshop, we will use [GitHub Codespaces](https://github.com/features/codespaces) to set up the development environment.
 
 Go to the [workshop repository](https://github.com/maplibre/workshop), in the top right click the *Code*, then go to the *Codespaces* tab and click the right button to start a new codespace.
 
-<img src="https://github.com/user-attachments/assets/0a398a4a-cfbe-4275-8c58-9cd92f9d73e3" width="50%" />
+<img src="assets/codespaces.png" width="50%"  alt="codespaces"/>
 
 After downloading the Docker image that we prepared for you you will be dropped into a shell. If not, click the small Plus sign above the terminal window to create another shell.
 
 ## 1. Tile Generation
 
-We already downloaded a Boston OSM extract created with [slice.openstreetmap.us](https://slice.openstreetmap.us/).
+We have already downloaded a Mostar OSM extract created with [slice.openstreetmap.us](https://slice.openstreetmap.us/).
 
 Run the following command.
 
 ```
-java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf
+java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/mostar.osm.pbf --output=/data/mostar.mbtiles
 ```
 
 #### Expected Result
-You should see planetiler generate a new file `data/output.mbtiles`.  Use `ll data/output.mbtiles` to see it.
+You should see planetiler generate a new file `/data/mostar.mbtiles`.  Use `ll /data/mostar.mbtiles` to see it.
 
 ## 2. Tile Serving
 
-The MBTiles file that was generated in the previous step can be hosted with a tile server. In this workshop we will use Martin, which is pre-installed to the development container.
+The MBTiles file generated in the previous step can be hosted with a tile server. In this workshop we will use Martin, which is pre-installed to the development container.
 
 Run the following command:
 
 ```
-martin data/output.mbtiles
+martin /data/mostar.mbtiles
 ```
 
 Martin will launch on port 3000. You will get a prompt to expose this port. Expose the port to the internet.
@@ -72,21 +70,29 @@ Martin server is running.
 See documentation https://github.com/maplibre/martin
 ```
 
-Go to the catalog, and then to `/output`. This is a TileJSON endpoint which describes the tiles hosted at that path.
+Examine the catalog endpoint by appending `/catalog` to the URL. See that `mostar` source is available.
+
+Also, examine the `/mostar` URL. This is a TileJSON endpoint that describes the tiles hosted at that path.  Note this URL - you will need it in the next step.
 
 ## 3. Styling your map
 
-Go to [Maputnik](https://maplibre.org/maputnik), click open and open the empty style. Next, add a new source. Use the URL of your Martin instance with the `/output` TileJSON endpoint.
+* Go to [Maputnik](https://maplibre.org/maputnik)
+* click open and open the `OSM OpenMapTiles` style
+* Use the data source editor to **modify** the existing active source `#openmaptiles`. Use the URL of your Martin instance with the `/mostar` TileJSON endpoint from the previous step.
 
-Since you don't have any layers, you will not see anything visualized. Hower, you can switch from the 'Map' view to the 'Inspect' view to see the data contained in your tiles. If it looks something like this, you are doing great so far!
+![edit datasource](assets/datasource.png)
 
-![alt text](image-1.png)
+* Click the `x` button next to the `Sources` to close the data source editor.
 
-Note that we only have detailed tiles in Massachusetts due to the OSM extract that we used. To generate vector tiles for the entire world would require a more powerful server than the one that GitHub Codespaces offers!
+* Note that we only have detailed tiles for a small area due to the OSM extract that we used. Try to zoom out, and re-zoom in on Mostar to see details. To generate vector tiles for the entire world would require a somewhat more powerful server than the one that GitHub Codespaces offers.
 
-Try adding some layers. Refer to the [MapLibre Style Spec](https://maplibre.org/maplibre-style-spec/) to see what kind of layers you can add. An easy one might be one for the ocean or other water bodies.
+* You can switch from the 'Map' view to the 'Inspect' view to see the data contained in your tiles. If it looks something like this, you are doing great so far!
 
-Check out what attributes exist in the Inspect view or refer to the documentation of the [OpenMapTiles Schema](https://openmaptiles.org/schema/), which is the tile schema that Planetiler uses by default.
+![maputnik](assets/maputnik.png)
+
+* Try adding some layers. Refer to the [MapLibre Style Spec](https://maplibre.org/maplibre-style-spec/) to see what kind of layers you can add. An easy one might be one for the ocean or other water bodies.
+
+* Check out what attributes exist in the Inspect view or refer to the documentation of the [OpenMapTiles Schema](https://openmaptiles.org/schema/), which is the tile schema that Planetiler uses by default.
 
 ## 4. Creating a Web Page with MapLibre
 
@@ -104,16 +110,30 @@ Take a closer look to the generated HMTL to understand how MapLibre GL JS is set
 
 ## 5. Creating a custom overlay with Planetiler
 
-[`scripts/benches.yaml`](./scripts/benches.yaml) describes how to create [custom map tiles](https://github.com/onthegomap/planetiler/blob/main/planetiler-custommap/README.md) with planetiler containing all of the benches in Boston.  Run it using the following command:
+[`scripts/benches.yaml`](./scripts/benches.yaml) describes how to create [custom map tiles](https://github.com/onthegomap/planetiler/blob/main/planetiler-custommap/README.md) with planetiler containing all of the benches in Mostar.  Run it using the following command:
 
 ```
-java -jar /planetiler.jar scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/boston.osm.pbf --output=data/benches.mbtiles
+java -jar /planetiler.jar scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/mostar.osm.pbf --output=/data/benches.mbtiles
 ```
 
 Then run martin again to serve those tiles:
 
 ```
-martin data/output.mbtiles data/benches.mbtiles
+martin /data/mostar.mbtiles /data/benches.mbtiles
 ```
 
-And you can add the source to Maputnik using `https://{public URL for your Martin instance}/benches`
+In maputnik, add the new source using `https://{public URL for your Martin instance}/benches` - lets call it `benches`. You can then add a new layer to the map using the `benches` source. For example, you can add a circle layer that shows benches in Mostar.
+
+![maputnik](assets/add-source.png)
+
+## Connect to the Database
+
+Test the connection to the PostgreSQL database that is running in the container. You can use the following command to connect to the database. Use `quit` or Ctrl-D to exit the psql shell.
+
+```sh
+psql postgres://postgres:password@db/maplibre
+
+osm2pgsql -d postgresql://postgres:password@db/maplibre -O flex -S scripts/bicycle_parking.lua /data/sources/mostar.osm.pbf
+
+martin /data/mostar.mbtiles postgres://postgres:password@db/maplibre
+```

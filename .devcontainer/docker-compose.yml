@@ -1,0 +1,31 @@
+services:
+  devenv:
+    image: ghcr.io/maplibre/workshop:mostar
+    restart: unless-stopped
+    command: sleep infinity
+
+#  frontend:
+#    image: nginx:alpine
+#    restart: unless-stopped
+#    ports:
+#      # These two ports must be identical and must match the one in nginx.conf
+#      - "8080:8080"
+#    volumes:
+#      - ../nginx.conf:/etc/nginx/nginx.conf
+#      - ../html:/usr/share/nginx/html
+#    depends_on:
+#      - maputnik
+#
+#  maputnik:
+#    image: ghcr.io/maplibre/maputnik:main
+#    restart: unless-stopped
+#    expose:
+#      - "80"
+
+  db:
+    image: postgis/postgis:16-3.4-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=maplibre
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
