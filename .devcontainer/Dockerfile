@@ -16,7 +16,7 @@ RUN curl -L --silent --show-error --fail -o /planetiler.jar \
     && rm /martin.tar.gz \
     && mkdir -p /data/sources
 
-RUN curl -L --silent --show-error --fail -o /data/sources/mostar.osm.pbf \
+RUN curl -L --silent --show-error --fail -o /data/sources/dc.osm.pbf \
       https://raw.githubusercontent.com/maplibre/workshop/refs/heads/foss4g-na-2025/data/dc.osm.pbf
 RUN curl -L --silent --show-error --fail -o /data/sources/natural_earth_vector.sqlite.zip \
       https://naciscdn.org/naturalearth/packages/natural_earth_vector.sqlite.zip
@@ -25,7 +25,7 @@ RUN curl -L --silent --show-error --fail -o /data/sources/water-polygons-split-3
 RUN curl -L --silent --show-error --fail -o /data/sources/lake_centerline.shp.zip \
       https://github.com/acalcutt/osm-lakelines/releases/download/v12/lake_centerline.shp.zip
 
-RUN java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/mostar.osm.pbf --output=/data/pre-built-mostar.mbtiles
+RUN java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/dc.osm.pbf --output=/data/pre-built-dc.mbtiles
 
 FROM ubuntu:25.10
 
@@ -45,4 +45,4 @@ RUN curl -L --silent --show-error --fail -o /planetiler.jar \
     && rm /martin.tar.gz \
     && mkdir -p /data/sources
 
-COPY --from=builder /data/pre-built-mostar.mbtiles /data/pre-built-mostar.mbtiles
+COPY --from=builder /data/pre-built-dc.mbtiles /data/pre-built-dc.mbtiles
