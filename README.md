@@ -27,7 +27,7 @@ After downloading the Docker image that we prepared for you you will be dropped 
 
 ## 1. Tile Generation
 
-We have already downloaded a Mostar OSM extract created with [slice.openstreetmap.us](https://slice.openstreetmap.us/).
+We have already downloaded a DC OSM extract created with [slice.openstreetmap.us](https://slice.openstreetmap.us/).
 
 Run the following command.
 
@@ -45,7 +45,7 @@ The MBTiles file generated in the previous step can be hosted with a tile server
 Run the following command:
 
 ```
-martin /data/dc.mbtiles
+martin   --webui enable-for-all   /data/dc.mbtiles
 ```
 
 Martin will launch on port 3000. You will get a prompt to expose this port. Expose the port to the internet.
@@ -84,7 +84,7 @@ Also, examine the `/dc` URL. This is a TileJSON endpoint that describes the tile
 
 * Click the `x` button next to the `Sources` to close the data source editor.
 
-* Note that we only have detailed tiles for a small area due to the OSM extract that we used. Try to zoom out, and re-zoom in on Mostar to see details. To generate vector tiles for the entire world would require a somewhat more powerful server than the one that GitHub Codespaces offers.
+* Note that we only have detailed tiles for a small area due to the OSM extract that we used. Try to zoom out, and re-zoom in on DC to see details. To generate vector tiles for the entire world would require a somewhat more powerful server than the one that GitHub Codespaces offers.
 
 * You can switch from the 'Map' view to the 'Inspect' view to see the data contained in your tiles. If it looks something like this, you are doing great so far!
 
@@ -110,7 +110,7 @@ Take a closer look to the generated HMTL to understand how MapLibre GL JS is set
 
 ## 5. Creating a custom overlay with Planetiler
 
-[`scripts/benches.yaml`](./scripts/benches.yaml) describes how to create [custom map tiles](https://github.com/onthegomap/planetiler/blob/main/planetiler-custommap/README.md) with planetiler containing all of the benches in Mostar.  Run it using the following command:
+[`scripts/benches.yaml`](./scripts/benches.yaml) describes how to create [custom map tiles](https://github.com/onthegomap/planetiler/blob/main/planetiler-custommap/README.md) with planetiler containing all of the benches in DC.  Run it using the following command:
 
 ```
 java -jar /planetiler.jar scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/dc.osm.pbf --output=/data/benches.mbtiles
@@ -119,10 +119,10 @@ java -jar /planetiler.jar scripts/benches.yaml --download_dir=/data/sources --mi
 Then run martin again to serve those tiles:
 
 ```
-martin /data/dc.mbtiles /data/benches.mbtiles
+martin   --webui enable-for-all   /data/dc.mbtiles /data/benches.mbtiles
 ```
 
-In maputnik, add the new source using `https://{public URL for your Martin instance}/benches` - lets call it `benches`. You can then add a new layer to the map using the `benches` source. For example, you can add a circle layer that shows benches in Mostar.
+In maputnik, add the new source using `https://{public URL for your Martin instance}/benches` - lets call it `benches`. You can then add a new layer to the map using the `benches` source. For example, you can add a circle layer that shows benches in DC.
 
 ![maputnik](assets/add-source.png)
 
@@ -135,5 +135,5 @@ psql postgres://postgres:password@db/maplibre
 
 osm2pgsql -d postgresql://postgres:password@db/maplibre -O flex -S scripts/bicycle_parking.lua /data/sources/dc.osm.pbf
 
-martin /data/dc.mbtiles postgres://postgres:password@db/maplibre
+martin   --webui enable-for-all   /data/dc.mbtiles postgres://postgres:password@db/maplibre
 ```
