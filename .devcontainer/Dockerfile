@@ -17,7 +17,7 @@ RUN curl -L --silent --show-error --fail -o /planetiler.jar \
     && mkdir -p /data/sources
 
 RUN curl -L --silent --show-error --fail -o /data/sources/mostar.osm.pbf \
-      https://github.com/maplibre/workshop/raw/de829f0696c42f4d8553be1e068213b4b53116ac/data/mostar-bosnia.osm.pbf
+      https://raw.githubusercontent.com/maplibre/workshop/refs/heads/foss4g-na-2025/data/dc.osm.pbf
 RUN curl -L --silent --show-error --fail -o /data/sources/natural_earth_vector.sqlite.zip \
       https://naciscdn.org/naturalearth/packages/natural_earth_vector.sqlite.zip
 RUN curl -L --silent --show-error --fail -o /data/sources/water-polygons-split-3857.zip \
