@@ -1,6 +1,6 @@
 # Make your own base map or overlay tiles with MapLibre stack and Planetiler
 
-<img src="https://2025.europe.foss4g.org/images/logo1.png" width="30%" alt="logo" />
+<img src="https://images.squarespace-cdn.com/content/6660a51220c4d544be347123/f00ad09c-7185-49de-a841-f234323f308b/FOSS4G+NA+2025_Logo_600x600.png" width="30%" alt="logo" />
 
 Welcome to our workshop organized by [MapLibre](https://maplibre.org/)! We hope you will have fun and learn something useful.
 
