@@ -32,11 +32,11 @@ We have already downloaded a Mostar OSM extract created with [slice.openstreetma
 Run the following command.
 
 ```
-java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/mostar.osm.pbf --output=/data/mostar.mbtiles
+java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/dc.osm.pbf --output=/data/dc.mbtiles
 ```
 
 #### Expected Result
-You should see planetiler generate a new file `/data/mostar.mbtiles`.  Use `ll /data/mostar.mbtiles` to see it.
+You should see planetiler generate a new file `/data/dc.mbtiles`.  Use `ll /data/dc.mbtiles` to see it.
 
 ## 2. Tile Serving
 
@@ -45,7 +45,7 @@ The MBTiles file generated in the previous step can be hosted with a tile server
 Run the following command:
 
 ```
-martin /data/mostar.mbtiles
+martin /data/dc.mbtiles
 ```
 
 Martin will launch on port 3000. You will get a prompt to expose this port. Expose the port to the internet.
@@ -70,15 +70,15 @@ Martin server is running.
 See documentation https://github.com/maplibre/martin
 ```
 
-Examine the catalog endpoint by appending `/catalog` to the URL. See that `mostar` source is available.
+Examine the catalog endpoint by appending `/catalog` to the URL. See that `dc` source is available.
 
-Also, examine the `/mostar` URL. This is a TileJSON endpoint that describes the tiles hosted at that path.  Note this URL - you will need it in the next step.
+Also, examine the `/dc` URL. This is a TileJSON endpoint that describes the tiles hosted at that path.  Note this URL - you will need it in the next step.
 
 ## 3. Styling your map
 
 * Go to [Maputnik](https://maplibre.org/maputnik)
 * click open and open the `OSM OpenMapTiles` style
-* Use the data source editor to **modify** the existing active source `#openmaptiles`. Use the URL of your Martin instance with the `/mostar` TileJSON endpoint from the previous step.
+* Use the data source editor to **modify** the existing active source `#openmaptiles`. Use the URL of your Martin instance with the `/dc` TileJSON endpoint from the previous step.
 
 ![edit datasource](assets/datasource.png)
 
@@ -113,13 +113,13 @@ Take a closer look to the generated HMTL to understand how MapLibre GL JS is set
 [`scripts/benches.yaml`](./scripts/benches.yaml) describes how to create [custom map tiles](https://github.com/onthegomap/planetiler/blob/main/planetiler-custommap/README.md) with planetiler containing all of the benches in Mostar.  Run it using the following command:
 
 ```
-java -jar /planetiler.jar scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/mostar.osm.pbf --output=/data/benches.mbtiles
+java -jar /planetiler.jar scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/dc.osm.pbf --output=/data/benches.mbtiles
 ```
 
 Then run martin again to serve those tiles:
 
 ```
-martin /data/mostar.mbtiles /data/benches.mbtiles
+martin /data/dc.mbtiles /data/benches.mbtiles
 ```
 
 In maputnik, add the new source using `https://{public URL for your Martin instance}/benches` - lets call it `benches`. You can then add a new layer to the map using the `benches` source. For example, you can add a circle layer that shows benches in Mostar.
@@ -133,7 +133,7 @@ Test the connection to the PostgreSQL database that is running in the container.
 ```sh
 psql postgres://postgres:password@db/maplibre
 
-osm2pgsql -d postgresql://postgres:password@db/maplibre -O flex -S scripts/bicycle_parking.lua /data/sources/mostar.osm.pbf
+osm2pgsql -d postgresql://postgres:password@db/maplibre -O flex -S scripts/bicycle_parking.lua /data/sources/dc.osm.pbf
 
-martin /data/mostar.mbtiles postgres://postgres:password@db/maplibre
+martin /data/dc.mbtiles postgres://postgres:password@db/maplibre
 ```

@@ -1,11 +1,11 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/onthegomap/planetiler/main/planetiler-custommap/planetiler.schema.json
 schema_name: Benches
-schema_description: Benches in Mostar
+schema_description: Benches in DC
 attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
 sources:
   osm:
     type: osm
-    local_path: /data/sources/mostar.osm.pbf
+    local_path: /data/sources/dc.osm.pbf
 layers:
   - id: bench
     features:
