@@ -10,7 +10,7 @@ MIN_LAT=56.4177048
 MAX_LON=-2.8143765
 MAX_LAT=56.5087732
 
-OUTPUT_FILE="/data/dundee.osm.pbf"
+OUTPUT_FILE="/data/sources/dundee.osm.pbf"
 
 echo "Requesting OSM slice for bounding box..."
 echo "BBox: ${MIN_LON},${MIN_LAT},${MAX_LON},${MAX_LAT}"

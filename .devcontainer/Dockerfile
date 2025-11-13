@@ -50,5 +50,4 @@ RUN curl -L --silent --show-error --fail -o /planetiler.jar \
     && rm /martin.tar.gz \
     && mkdir -p /data/sources
 
-# COPY --from=builder /data/pre-built-mostar.mbtiles /data/pre-built-mostar.mbtiles
-COPY --from=builder /data/*.osm.pbf /data/
+COPY --from=builder /data/sources/* /data/sources/
