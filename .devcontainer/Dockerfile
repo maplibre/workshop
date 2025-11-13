@@ -16,6 +16,11 @@ RUN curl -L --silent --show-error --fail -o /planetiler.jar \
     && rm /martin.tar.gz \
     && mkdir -p /data/sources
 
+COPY scripts/download_osm_slice.sh /tmp/download_osm_slice.sh
+RUN chmod +x /tmp/download_osm_slice.sh \
+    && mkdir -p /data \
+    && /tmp/download_osm_slice.sh
+
 RUN curl -L --silent --show-error --fail -o /data/sources/mostar.osm.pbf \
       https://github.com/maplibre/workshop/raw/de829f0696c42f4d8553be1e068213b4b53116ac/data/mostar-bosnia.osm.pbf
 RUN curl -L --silent --show-error --fail -o /data/sources/natural_earth_vector.sqlite.zip \
@@ -46,3 +51,4 @@ RUN curl -L --silent --show-error --fail -o /planetiler.jar \
     && mkdir -p /data/sources
 
 COPY --from=builder /data/pre-built-mostar.mbtiles /data/pre-built-mostar.mbtiles
+COPY --from=builder /data/*.osm.pbf /data/
