@@ -1,4 +1,4 @@
-# Make your own base map or overlay tiles with MapLibre stack and Planetiler
+# Make your own basemap with MapLibre and Planetiler 
 
 <p align="center">
 <img width="238" height="410" alt="image" src="https://github.com/user-attachments/assets/adcac247-efad-4aa1-927c-c8806c76fb8b" />
