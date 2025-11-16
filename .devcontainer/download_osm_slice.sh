@@ -2,15 +2,15 @@
 set -e
 
 # NOTE: This script should be updated whenever the workshop location changes.
-# Update the bounding box coordinates and the OUTPUT_FILE path below.
+# Update the bounding box coordinates below.
 
 # Bounding box coordinates (format: min_lon,min_lat,max_lon,max_lat)
-MIN_LON=-3.0641273
-MIN_LAT=56.4177048
-MAX_LON=-2.8143765
-MAX_LAT=56.5087732
+MIN_LON=174.219297
+MIN_LAT=-37.068435
+MAX_LON=175.254758
+MAX_LAT=-36.575944
 
-OUTPUT_FILE="/data/dundee.osm.pbf"
+OUTPUT_FILE="/data/workshop.osm.pbf"
 
 echo "Requesting OSM slice for bounding box..."
 echo "BBox: ${MIN_LON},${MIN_LAT},${MAX_LON},${MAX_LAT}"
@@ -91,4 +91,3 @@ fi
 
 echo "Successfully downloaded ${OUTPUT_FILE}"
 ls -lh "${OUTPUT_FILE}"
-
