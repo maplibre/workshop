@@ -11,7 +11,7 @@ RUN apt-get update \
 RUN curl -L --silent --show-error --fail -o /planetiler.jar \
       https://github.com/onthegomap/planetiler/releases/download/v0.9.0/planetiler.jar \
     && curl -L --silent --show-error --fail -o /martin.tar.gz \
-      https://github.com/maplibre/martin/releases/download/v0.17.0/martin-x86_64-unknown-linux-gnu.tar.gz \
+      https://github.com/maplibre/martin/releases/download/martin-v0.20.2/martin-x86_64-unknown-linux-gnu.tar.gz \
     && tar -xzf /martin.tar.gz -C /usr/local/bin \
     && rm /martin.tar.gz \
     && mkdir -p /data/sources
