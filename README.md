@@ -26,11 +26,11 @@ We have already downloaded an OSM extract created with [slice.openstreetmap.us](
 Run the following command.
 
 ```
-java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/workshop.osm.pbf --output=/data/dundee.mbtiles
+java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/workshop.osm.pbf --output=/data/workshop.mbtiles
 ```
 
 #### Expected Result
-You should see planetiler generate a new file `/data/workshop.mbtiles`.  Use `ls /data/dundee.mbtiles` to see it.
+You should see planetiler generate a new file `/data/workshop.mbtiles`.  Use `ls /data/workshop.mbtiles` to see it.
 
 ## 2. Tile Serving
 
