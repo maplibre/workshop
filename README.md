@@ -1,9 +1,5 @@
 # Make your own basemap with MapLibre and Planetiler 
 
-<p align="center">
-<img width="238" height="410" alt="image" src="https://github.com/user-attachments/assets/adcac247-efad-4aa1-927c-c8806c76fb8b" />
-</p>
-
 Welcome to our workshop organized by [MapLibre](https://maplibre.org/)! We hope you will have fun and learn something useful.
 
 ## Your Hosts
