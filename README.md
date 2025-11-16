@@ -2,10 +2,6 @@
 
 Welcome to our workshop organized by [MapLibre](https://maplibre.org/)! We hope you will have fun and learn something useful.
 
-## Your Hosts
-
-- [Bart Louwers](https://github.com/louwers)
-
 ## Goal
 
 1. Create your own vector tiles with [Planetiler](https://github.com/onthegomap/planetiler).
