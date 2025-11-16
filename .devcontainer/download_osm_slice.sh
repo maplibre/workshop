@@ -10,7 +10,8 @@ MIN_LAT=-37.068435
 MAX_LON=175.254758
 MAX_LAT=-36.575944
 
-OUTPUT_FILE="/data/workshop.osm.pbf"
+OUTPUT_FILE="/data/sources/workshop.osm.pbf"
+mkdir -p "$(dirname "${OUTPUT_FILE}")"
 
 echo "Requesting OSM slice for bounding box..."
 echo "BBox: ${MIN_LON},${MIN_LAT},${MAX_LON},${MAX_LAT}"
