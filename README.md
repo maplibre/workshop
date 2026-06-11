@@ -129,5 +129,8 @@ psql postgres://postgres:password@db/maplibre
 
 osm2pgsql -d postgresql://postgres:password@db/maplibre -O flex -S scripts/bicycle_parking.lua /data/sources/workshop.osm.pbf
 
+# Check the new table exists with some data
+psql postgres://postgres:password@db/maplibre -c 'select * from bicycle_parking limit 3;'
+
 martin /data/workshop.mbtiles postgres://postgres:password@db/maplibre
 ```
