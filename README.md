@@ -26,7 +26,7 @@ We have already downloaded an OSM extract created with [slice.openstreetmap.us](
 Run the following command.
 
 ```
-java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/workshop.osm.pbf --output=/data/workshop.mbtiles
+java -jar /planetiler.jar --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/workshop.osm.pbf --tmpdir=/data/tmp  --output=/data/workshop.mbtiles
 ```
 
 #### Expected Result
