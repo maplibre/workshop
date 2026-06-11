@@ -68,11 +68,21 @@ Examine the catalog endpoint by appending `/catalog` to the URL. See that `works
 
 Also, examine the `/workshop` URL. This is a TileJSON endpoint that describes the tiles hosted at that path.  Note this URL - you will need it in the next step.
 
+### Web UI
+
+`ctrl-c` to stop the server, and restart it with the `--webui enable-for-all` flag:
+
+```shell
+martin /data/workshop.mbtiles --webui enable-for-all
+```
+
+Look at the Web UI, especially the catalog. 
+
 ## 3. Styling your map
 
 * Go to [Maputnik](https://maplibre.org/maputnik)
 * click open and open the `OSM OpenMapTiles` style
-* Use the data source editor to **modify** the existing active source `#openmaptiles`. Use the URL of your Martin instance with the `/workshop` TileJSON endpoint from the previous step.
+* Use the data source editor to **modify** the existing active source `#openmaptiles`. Use the URL of your Martin instance with the `/workshop` TileJSON endpoint from the previous step.  You can get this link by clicking the `inspect` button in the data source editor, and click `Copy link` next to the `TileJSON URL`. It should look something like `https://{public URL for your Martin instance}/workshop`.
 
 ![edit datasource](assets/datasource.png)
 
@@ -107,7 +117,7 @@ Take a closer look to the generated HMTL to understand how MapLibre GL JS is set
 [`scripts/benches.yaml`](./scripts/benches.yaml) describes how to create [custom map tiles](https://github.com/onthegomap/planetiler/blob/main/planetiler-custommap/README.md) with planetiler containing all of the benches.  Run it using the following command:
 
 ```
-java -jar /planetiler.jar scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/workshop.osm.pbf --output=/data/benches.mbtiles
+java -jar /planetiler.jar scripts/benches.yaml --download_dir=/data/sources --minzoom=0 --maxzoom=14 --osm_path=/data/sources/workshop.osm.pbf  --tmpdir=/data/tmp --output=/data/benches.mbtiles
 ```
 
 Then run martin again to serve those tiles:
