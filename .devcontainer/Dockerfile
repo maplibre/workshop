@@ -9,9 +9,9 @@ RUN apt-get update \
       osm2pgsql
 
 RUN curl -L --silent --show-error --fail -o /planetiler.jar \
-      https://github.com/onthegomap/planetiler/releases/download/v0.9.0/planetiler.jar \
+      https://github.com/onthegomap/planetiler/releases/download/v0.10.2/planetiler.jar \
     && curl -L --silent --show-error --fail -o /martin.tar.gz \
-      https://github.com/maplibre/martin/releases/download/martin-v0.20.2/martin-x86_64-unknown-linux-gnu.tar.gz \
+      https://github.com/maplibre/martin/releases/download/martin-v1.10.1/martin-aarch64-unknown-linux-gnu.tar.gz \
     && tar -xzf /martin.tar.gz -C /usr/local/bin \
     && rm /martin.tar.gz \
     && mkdir -p /data/sources

@@ -3,12 +3,13 @@ set -e
 
 # NOTE: This script should be updated whenever the workshop location changes.
 # Update the bounding box coordinates below.
+# E.g. from https://geobounds.com/
 
 # Bounding box coordinates (format: min_lon,min_lat,max_lon,max_lat)
-MIN_LON=174.219297
-MIN_LAT=-37.068435
-MAX_LON=175.254758
-MAX_LAT=-36.575944
+MIN_LON=-89.859177
+MIN_LAT=42.715939
+MAX_LON=-88.696754
+MAX_LAT=43.377857
 
 OUTPUT_FILE="/data/sources/workshop.osm.pbf"
 mkdir -p "$(dirname "${OUTPUT_FILE}")"
