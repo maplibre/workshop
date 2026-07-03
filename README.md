@@ -1,4 +1,7 @@
-# Make your own basemap with MapLibre and Planetiler 
+<img width="25%" alt="image" src="https://github.com/user-attachments/assets/ca5384c8-118a-4f46-8090-80c917f525c9" />
+<br>
+
+# Make your own basemap with MapLibre and Planetiler
 
 Welcome to our workshop organized by [MapLibre](https://maplibre.org/)! We hope you will have fun and learn something useful.
 
