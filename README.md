@@ -108,7 +108,7 @@ When you are happy with the style you are created, go to *Save* in the top bar a
 Create an index.html in your Codespace and paste the contents of the HTML file that was downloaded. Next, launch a simple web server and expose it to the internet like before.
 
 ```
-python -m http.server 1234
+python3 -m http.server 1234
 ```
 
 If everything went well, you will have created your own basemap and deployed it in under one hour!
