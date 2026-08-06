@@ -81,7 +81,7 @@ Look at the Web UI, especially the catalog.
 ## 3. Styling your map
 
 * Go to [Maputnik](https://maplibre.org/maputnik)
-* click open and open the `OSM OpenMapTiles` style
+* click open and open the `OSM Liberty` style
 * Use the data source editor to **modify** the existing active source `#openmaptiles`. Use the URL of your Martin instance with the `/workshop` TileJSON endpoint from the previous step.  You can get this link by clicking the `inspect` button in the data source editor, and click `Copy link` next to the `TileJSON URL`. It should look something like `https://{public URL for your Martin instance}/workshop`.
 
 ![edit datasource](assets/datasource.png)
