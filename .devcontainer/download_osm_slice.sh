@@ -37,14 +37,16 @@ GEOJSON_DATA=$(cat <<EOF
 EOF
 )
 
-# Submit the request
-echo "Submitting request to OSM slice API..."
-RESPONSE=$(curl -s -X POST https://slice.openstreetmap.us/api/ \
-  -H "Content-Type: application/json" \
-  -d "${GEOJSON_DATA}")
+#JOB_ID='cde17172-26a0-4e93-b578-1515173d8c6c'
 
-# Extract the job ID from the response
-JOB_ID=$(echo "${RESPONSE}" | grep -o '[a-f0-9-]\{36\}' | head -1)
+## Submit the request
+#echo "Submitting request to OSM slice API..."
+#RESPONSE=$(curl -s -X POST https://slice.openstreetmap.us/api/ \
+#  -H "Content-Type: application/json" \
+#  -d "${GEOJSON_DATA}")
+#
+## Extract the job ID from the response
+#JOB_ID=$(echo "${RESPONSE}" | grep -o '[a-f0-9-]\{36\}' | head -1)
 
 if [ -z "${JOB_ID}" ]; then
   echo "Error: Failed to get job ID from response:"
