@@ -6,10 +6,10 @@ set -e
 # E.g. from https://geobounds.com/
 
 # Bounding box coordinates (format: min_lon,min_lat,max_lon,max_lat)
-MIN_LON=132.1785
-MIN_LAT=34.2901
-MAX_LON=132.6961
-MAX_LAT=34.6138
+MIN_LON=2.08
+MIN_LAT=48.68
+MAX_LON=2.62
+MAX_LAT=49.05
 
 OUTPUT_FILE="/data/sources/workshop.osm.pbf"
 mkdir -p "$(dirname "${OUTPUT_FILE}")"
@@ -37,14 +37,16 @@ GEOJSON_DATA=$(cat <<EOF
 EOF
 )
 
-# Submit the request
-echo "Submitting request to OSM slice API..."
-RESPONSE=$(curl -s -X POST https://slice.openstreetmap.us/api/ \
-  -H "Content-Type: application/json" \
-  -d "${GEOJSON_DATA}")
+JOB_ID='cde17172-26a0-4e93-b578-1515173d8c6c'
 
-# Extract the job ID from the response
-JOB_ID=$(echo "${RESPONSE}" | grep -o '[a-f0-9-]\{36\}' | head -1)
+## Submit the request
+#echo "Submitting request to OSM slice API..."
+#RESPONSE=$(curl -s -X POST https://slice.openstreetmap.us/api/ \
+#  -H "Content-Type: application/json" \
+#  -d "${GEOJSON_DATA}")
+#
+## Extract the job ID from the response
+#JOB_ID=$(echo "${RESPONSE}" | grep -o '[a-f0-9-]\{36\}' | head -1)
 
 if [ -z "${JOB_ID}" ]; then
   echo "Error: Failed to get job ID from response:"
