@@ -1,4 +1,4 @@
-FROM ubuntu:25.10
+FROM ubuntu:26.04
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -11,7 +11,7 @@ RUN apt-get update \
 RUN curl -L --silent --show-error --fail -o /planetiler.jar \
       https://github.com/onthegomap/planetiler/releases/download/v0.10.2/planetiler.jar \
     && curl -L --silent --show-error --fail -o /martin.tar.gz \
-      https://github.com/maplibre/martin/releases/download/martin-v1.10.1/martin-x86_64-unknown-linux-musl.tar.gz \
+      https://github.com/maplibre/martin/releases/download/martin-v1.13.0/martin-x86_64-unknown-linux-musl.tar.gz \
     && tar -xzf /martin.tar.gz -C /usr/local/bin \
     && rm /martin.tar.gz \
     && mkdir -p /data/sources
