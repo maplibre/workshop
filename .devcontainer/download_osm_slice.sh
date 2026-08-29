@@ -6,10 +6,10 @@ set -e
 # E.g. from https://geobounds.com/
 
 # Bounding box coordinates (format: min_lon,min_lat,max_lon,max_lat)
-MIN_LON=1.5
-MIN_LAT=48
-MAX_LON=3.2
-MAX_LAT=49.2
+MIN_LON=2.08
+MIN_LAT=48.68
+MAX_LON=2.62
+MAX_LAT=49.05
 
 OUTPUT_FILE="/data/sources/workshop.osm.pbf"
 mkdir -p "$(dirname "${OUTPUT_FILE}")"
