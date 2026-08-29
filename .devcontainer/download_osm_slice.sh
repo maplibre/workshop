@@ -37,7 +37,7 @@ GEOJSON_DATA=$(cat <<EOF
 EOF
 )
 
-#JOB_ID='cde17172-26a0-4e93-b578-1515173d8c6c'
+JOB_ID='cde17172-26a0-4e93-b578-1515173d8c6c'
 
 ## Submit the request
 #echo "Submitting request to OSM slice API..."
